@@ -6,6 +6,42 @@ long long maxSubarraySum(int arr[], int n)
         No need to print anything.
         Taking input and printing output is handled automatically.
     */
+    
+    // Brute Force Solution { T.C = O(n^3) S.C = O(1)}
+    int i,j,k;
+    int Max = INT_MIN;
+    for(i=0;i<n;i++)
+    {
+        for(j=i;j<n;j++)
+        {
+            int sum=0;
+            for(k=i;k<j;k++)
+            {
+                sum+=arr[k];
+                }
+             Max = max(sum,Max);
+        }
+      }   
+    
+    // Better than Brute Force Solution { T.C = O(n^2) S.C = O(1)}
+    int i,j;
+    int Max = INT_MIN;
+    for(i=0;i<n;i++)
+    {
+         int sum=0;
+        for(j=i;j<n;j++)
+        {
+             sum+=arr[k];
+             Max = max(sum,Max);
+        }
+      }   
+    
+    
+    
+    
+    
+    
+    // Optimal solution using Kadane's Algorithm  { T.C = O(n) S.C = O(1)}
     if(n==0) return 0;
     long long sum = 0;
 
