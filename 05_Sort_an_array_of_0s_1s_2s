@@ -1,0 +1,56 @@
+#include <bits/stdc++.h> 
+void sort012(int *arr, int n)
+{
+   //   Write your code here
+   /* Method 1: Using sorting/sort function
+
+       sort(arr,arr+n);*/
+
+   /*Method 2: Using hashing
+
+   int cnt0 = 0;
+   int cnt1 = 0;
+   int cnt2 = 0;
+   
+   for(int i=0;i<n;i++)
+   {
+      if(arr[i] == 0) cnt0++;
+      else if(arr[i] == 1) cnt1++;
+      else cnt2++;
+   }
+
+   int i=0;
+   while(cnt0>0 && i<n)
+   {
+      arr[i] = 0;
+      cnt0--;
+      i++;
+   }
+
+   while(cnt1>0 && i<n)
+   {
+      arr[i] = 1;
+      cnt1--;
+      i++;
+   }
+
+   while(cnt2>0 && i<n)
+   {
+      arr[i] = 2;
+      cnt2--;
+      i++;
+   }*/
+
+
+   /*Method 3: Dutch National Flag Algorithm*/
+
+   int left = 0, mid = 0, right = n-1;
+
+   while(mid <= right)
+   {
+      if(arr[mid] == 0) {swap(arr[mid], arr[left]); mid++; left++; } 
+      else if(arr[mid] == 2) {swap(arr[mid], arr[right]);right--; }
+      else mid++;
+   }
+
+}
