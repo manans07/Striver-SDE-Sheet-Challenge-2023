@@ -1,8 +1,8 @@
 void rotateMatrix(vector<vector<int>> &mat, int n, int m)
 {
     // Write your code here
-    // vector<vector<int>> v(n,vector<int>(m));
-
+    
+    // CodeStudio Solution
         int left = 0, top = 0, bottom = m-1, right = n-1,k,ele;
         while(left < right && top < bottom)
         {
@@ -42,5 +42,23 @@ void rotateMatrix(vector<vector<int>> &mat, int n, int m)
             }
             left++;
             mat[top-1][left-1]=ele;
+
+            // Leetcode Solution
+
+            vector<vector<int>> ans;
+            for(int i=0;i<n;i++)
+            {
+                for(int j=0;j<m;j++)
+                    {
+                        ans[i][j] = mat[j][i];                    }
+            }
+
+            for(int i=0;i<n;i++)
+            {
+                reverse(ans[i].begin(),ans[i].end());
+            }
+            
+
+
 
         }
