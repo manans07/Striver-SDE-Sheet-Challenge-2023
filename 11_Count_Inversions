@@ -13,4 +13,157 @@ long long getInversions(long long *arr, int n){
     }
 
     return ans;*/
+    
+    #include <bits/stdc++.h> 
+
+
+
+/*
+long long merge(long long *arr,int n,long long left,long long mid,long long right)
+{
+    long long ind1 = left;
+    long long ind2 = mid+1;
+    long long i=0,cnt=0;
+    long long arr1[right-left+1];
+    while((ind1<=mid) && (ind2<=right))
+    {
+        if(arr[ind1] > arr[ind2])
+        {
+            arr1[i++] = arr[ind2++];
+            cnt = cnt + (mid-ind1);
+        }
+        else{
+            arr1[i++] = arr[ind1++];
+        }
+    }
+
+    while(ind1<=mid)
+    {
+           arr1[i++] = arr[ind1++];
+    }
+
+    while(ind2<=right)
+    {
+           arr1[i++] = arr[ind2++];
+    }
+
+    for(int i=left;i<=right;i++)
+    {
+        arr[i] = arr1[i];
+    }
+
+    return cnt;
+}
+
+
+
+
+long long mergeSort(long long *arr,int n,long long left, long long right)
+{
+    long long ans=0;
+    if(left<right){ 
+    long long mid = (right+left)/2;
+    ans+= mergeSort(arr,n,left,mid);
+    ans+= mergeSort(arr,n,mid+1,right);
+    ans+= merge(arr,n,left,mid,right);
+    return ans;
+    }
+    return ans;
+
+}
+
+*/
+
+
+  long long merge(vector<long long> &arr, long long low, long long mid, long long high) {
+    vector<long long> temp; // temporary array
+    long long left = low;      // starting index of left half of arr
+    long long right = mid + 1;   // starting index of right half of arr
+
+    //Modification 1: cnt variable to count the pairs:
+    long long cnt = 0;
+
+    //storing elements in the temporary array in a sorted manner//
+
+    while (left <= mid && right <= high) {
+        if (arr[left] <= arr[right]) {
+            temp.push_back(arr[left]);
+            left++;
+        }
+        else {
+            temp.push_back(arr[right]);
+            cnt += (mid - left + 1); //Modification 2
+            right++;
+        }
+    }
+
+    // if elements on the left half are still left //
+
+    while (left <= mid) {
+        temp.push_back(arr[left]);
+        left++;
+    }
+
+    //  if elements on the right half are still left //
+    while (right <= high) {
+        temp.push_back(arr[right]);
+        right++;
+    }
+
+    // transfering all elements from temporary to arr //
+    for (long long i = low; i <= high; i++) {
+        arr[i] = temp[i - low];
+    }
+
+    return cnt; // Modification 3
+}
+
+    long long mergeSort(vector<long long> &arr, long long low, long long high) {
+    long long cnt = 0;
+    if (low >= high) return cnt;
+    int mid = (low + high) / 2 ;
+    cnt += mergeSort(arr, low, mid);  // left half
+    cnt += mergeSort(arr, mid + 1, high); // right half
+    cnt += merge(arr, low, mid, high);  // merging sorted halves
+    return cnt;
+    }
+
+
+
+
+
+
+long long getInversions(long long *arr, int n){
+    // Write your code here.
+
+    /*Method 1: Brute Force  T.C=O(N^N) S.C = O(1)
+    long long ans = 0;
+
+    for(long long i=0;i<n;i++)
+    {
+        for(long long j=i+1;j<n;j++)
+        {
+            if((arr[i] > arr[j]) && (i<j)) ans++;
+        }
+    }
+
+    return ans;*/
+  
+    /*Method 2: Merge Sort Technique T.C = O(N*logN) S.C = O(N) */
+
+    vector<long long> v(n);
+
+    for(long long i=0;i<n;i++)
+    {
+        v[i] = arr[i];
+    }
+
+    long long ans = mergeSort(v,0,n-1); 
+
+    return ans;
+
+
+}
+    
+    
 }
