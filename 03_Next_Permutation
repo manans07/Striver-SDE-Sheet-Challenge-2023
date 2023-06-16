@@ -1,0 +1,39 @@
+#include <bits/stdc++.h> 
+vector<int> nextPermutation(vector<int> &p, int n)
+{
+    //  Write your code here.
+    /*Method 1: Store all possible permutaions and find the next permutation */
+    
+    /*Method 2: Use C++ built in next_permutation() function
+    
+    vector<int> ans = next_permutation(p.begin(), p.begin()+n);
+    return ans;*/
+    
+    
+ 
+ 
+    /*Optimal Solution */
+    
+    int i,j;
+
+    for(i=n-2;i>=0;i--)
+    {
+        if(p[i] < p[i+1]) break;
+    }
+    
+    if(i<0){ reverse(p.begin(),p.end()); return p;}
+
+    for(j=n-1;j>i;j--)
+    {
+        if(p[j] > p[i]) break;
+    }
+
+    swap(p[i],p[j]);
+
+    reverse(p.begin()+i+1,p.end());
+
+    return p;
+
+
+
+}
