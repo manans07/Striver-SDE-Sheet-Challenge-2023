@@ -1,0 +1,96 @@
+#include <bits/stdc++.h>
+
+bool isPresent(vector<int> v,int element)
+{
+	for(int i=0;i<v.size();i++)
+	{
+		if(v[i] == element) return true;
+	}
+	return false;
+}
+
+
+
+pair<int,int> missingAndRepeating(vector<int> &a, int n)
+{
+	// Write your code here 
+
+	/*Method 1: Brute Force
+	pair<int,int> p1;
+
+	sort(arr.begin(),arr.end());
+
+	int twice=0;
+	int missing=0;
+	for(int i=0;i<n;i++)
+	{
+		if(arr[i] == arr[i+1])
+		{
+			twice = arr[i];
+			break;
+		}
+	}
+
+	for(int i=0;i<n;i++)
+	{
+		if(!isPresent(arr,i+1))
+		{
+			missing = i+1;
+			break;
+		}
+	}*/
+
+
+/*	Method 2: Using Hashing T.C = O(N) S.C = O(N)
+	unordered_map<int,int> mp;
+	int twice = 0, missing = 0;
+	pair<int,int> p1;
+	for(int i=0;i<n;i++)
+	{
+		mp[arr[i]]++;
+	}
+
+	for(int i=1;i<=n;i++)
+	{
+		if(mp[i]>1) {
+			twice = i;
+			// break;
+		}
+
+		if(mp[i] == 0)
+			{
+				missing = i;
+				// break;
+			}
+	}*/
+
+
+/*	Method 3: Using summation of series
+		
+    // Find Sn and S2n:
+    long long SN = (n * (n + 1)) / 2;
+    long long S2N = (n * (n + 1) * (2 * n + 1)) / 6;
+
+    // Calculate S and S2:
+    long long S = 0, S2 = 0;
+    for (int i = 0; i < n; i++) {
+        S += a[i];
+        S2 += (long long)a[i] * (long long)a[i];
+    }
+
+    //S-Sn = X-Y:
+    long long val1 = S - SN;
+
+    // S2-S2n = X^2-Y^2:
+    long long val2 = S2 - S2N;
+
+    //Find X+Y = (X^2-Y^2)/(X-Y):
+    val2 = val2 / val1;
+
+    //Find X and Y: X = ((X+Y)+(X-Y))/2 and Y = X-(X-Y),
+    // Here, X-Y = val1 and X+Y = val2:
+    long long x = (val1 + val2) / 2;
+    long long y = x - val1;
+
+    return {(int)y, (int)x};*/
+}
