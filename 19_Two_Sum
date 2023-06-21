@@ -1,0 +1,94 @@
+class Solution {
+public:
+  
+  // Leetcode
+    vector<int> twoSum(vector<int>& v, int target) {
+       
+        vector<int> v1;
+        
+        /* Method 1: Brute Force T.C=O(N^2) S.C=O(1)
+        
+        for(int i=0;i<v.size();i++)
+        {
+            for(int j=i+1;j<v.size();j++)
+            {
+                if(v[i]+v[j] == target)
+                {
+                    v1.push_back(i);
+                    v1.push_back(j);
+                    break;
+                }
+            }
+        }*/
+        
+        /*Method 2: Hashing T.C=O(N) S.C=O(N)*/
+        unordered_map<int,int> mp;
+        int n = v.size();
+        
+        for(int i=0;i<n;i++)
+        {
+            int a = target-v[i];
+            if(mp.find(a) != mp.end())
+            {
+                v1.push_back(mp[a]);
+                v1.push_back(i);
+                return v1;
+                }
+            mp[v[i]] = i;
+        }
+        
+        return v1;           
+    }
+    
+    // CodeStudio
+    vector<vector<int>> pairSum(vector<int> &arr, int s){
+   // Write your code here.
+
+   vector<vector<int>> ans;
+   
+   /*Method 1: Brute Force: T.C = O(N^2) S.C = O(N^2)
+
+   int n = arr.size();
+   for(int i=0;i<n;i++)
+   {
+      for(int j=i+1;j<n;j++)
+      {
+         if(arr[i]+arr[j] == s)
+         {
+            if(arr[i]<arr[j]) {ans.push_back({arr[i],arr[j]});}
+            else ans.push_back({arr[j],arr[i]});
+         }
+      }
+   } 
+
+   sort(ans.begin(),ans.end());*/
+
+   /*Method 2: Hashing T.C = O(N) S.C = O(N)*/
+   // vector<int> ans;
+   unordered_map<int,int> mp;
+   int n = arr.size();
+
+   for(int i=0;i<n;i++)
+   {
+      int a = s-arr[i];
+      if(mp.find(a) != mp.end())
+      {
+         int val = mp[a];
+         int mini = min(arr[i],a);
+         int maxi = max(arr[i],a);
+
+         while(val--)
+         {
+            ans.push_back({mini,maxi});
+         }
+
+      }
+      mp[arr[i]]++;
+   }
+   sort(ans.begin(),ans.end());
+   return ans;
+}
+    
+    
+    
+};
