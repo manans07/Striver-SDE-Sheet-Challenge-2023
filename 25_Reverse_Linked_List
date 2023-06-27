@@ -1,0 +1,45 @@
+    ListNode* reverseList(ListNode* head) {
+    
+            if(head == nullptr || head->next == nullptr) return head;
+        /*Method 1: Naive Approach using array  T.C = O(N) S.C = O(N)
+     
+            ListNode* ptr = head;
+            vector<int> v1;
+
+            if(head == nullptr || head->next == nullptr) return head;
+
+            while(ptr->next != NULL)
+            {
+                v1.push_back(ptr->val);
+                ptr = ptr->next;
+            }
+            v1.push_back(ptr->val);
+            int i=v1.size()-1;
+            ptr = head;
+            while(i>=0 && ptr->next != NULL)
+            {
+                ptr->val = v1[i];
+                ptr = ptr->next;
+                i--;
+            }
+            ptr->val = v1[0];
+            ptr = head; 
+            return ptr;*/
+        
+        
+        /*Method 2: Reverse Pointers  T.C = O(N) S.C = O(1)*/
+        
+        ListNode* temp = nullptr;
+        
+        while(head!=NULL)
+        {
+            ListNode* ptr = head;
+            head = head->next;
+            ptr->next = temp;
+            temp = ptr;
+            
+        }
+        
+        return temp;
+
+}
