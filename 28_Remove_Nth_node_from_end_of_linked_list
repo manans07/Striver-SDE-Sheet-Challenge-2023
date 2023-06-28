@@ -1,0 +1,81 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    
+    ListNode* removeNthFromEnd(ListNode *head, int n)
+    {
+        if (head == NULL || head->next == NULL)
+        {
+            return NULL;
+        }
+        
+        /*Method 1: Naive Approach*/
+        
+        ListNode* temp = head;
+        // vector<int> v;
+        
+        int n1=0;
+        while(temp)
+        {
+            n1++;
+            temp = temp->next;
+        }
+        
+        
+        int m = n1-n;
+        if(m==0)
+        {
+            head = head->next;
+            return head;
+            }
+        
+        int j = 0;
+        
+        temp = head;
+        
+        while(temp != NULL)
+        {
+            j++;
+            if(j==m)  temp->next=temp->next->next;
+            temp=temp->next;
+        }
+        
+        return head;
+        
+        
+        /*Method 2: Slow and Fast Pointers
+        
+        ListNode* start = new ListNode();
+        start->next = head;
+        ListNode* slow = start; 
+        ListNode* fast = start;
+        
+        int i =0;
+        while(i<n && fast->next != nullptr)
+        {
+            fast=fast->next;
+            i++;
+        }
+        
+        while(fast->next != nullptr)
+        {
+            fast = fast->next;
+            slow = slow->next;
+            }
+        
+        // ListNode* t = slow->next;
+        slow->next = slow->next->next;
+        // delete(t);
+        
+        return start->next;*/
+    }
+};
