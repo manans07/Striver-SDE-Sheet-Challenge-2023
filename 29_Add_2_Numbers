@@ -1,0 +1,101 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    
+    int reverseNum(int n)
+    {
+        int n1=0;
+        while(n>0)
+        {
+            int rem = n%10;
+            n1=10*n1+rem;
+            n/=10;
+            }
+        return n1;
+    }
+    
+    
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        
+        /* Method 1: Naive Solution
+        
+        int n1=0,n2=0;
+        
+        while(l1)
+        {
+            n1 = 10*n1+(l1->val);
+            l1 = l1->next;
+        }
+        
+        while(l2)
+        {
+            n2 = 10*n2+(l2->val);
+            l2 = l2->next;
+        }
+        
+        int sum = n1 + n2;
+        
+        // sum = reverseNum(sum);
+        
+        ListNode* head = new ListNode();
+        ListNode* t = head;
+        int carry = 0;
+        while(sum>0)
+        {
+            int rem = sum%10;
+
+            ListNode* t1 = new ListNode(rem);
+            t->next = t1;
+            t = t->next;
+            sum/=10;
+            }
+        
+        if(head->next)
+        return head->next;*/
+        
+        
+        /*Method 2: Optimal Solution*/
+        
+        
+        int carry = 0;
+        
+        ListNode* head = new ListNode();
+        
+        ListNode* t = head;
+        
+        while(l1 || l2 || carry)
+        {
+            int sum = 0;
+            if(l1)
+            {
+                sum+=l1->val;
+                l1 = l1->next; 
+                    }
+            
+            if(l2)
+            {
+                sum+=l2->val;
+                l2 = l2->next;
+                    }
+            
+            sum+=carry;
+            
+            ListNode* temp = new ListNode(sum%10);
+            carry = sum/10;
+            t->next = temp;
+            t = t->next;
+            }
+        
+        return head->next;
+        
+    }
+};
