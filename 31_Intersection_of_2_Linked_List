@@ -1,0 +1,157 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    
+    int getDifference(ListNode* head1,ListNode* head2) {
+     int len1 = 0,len2 = 0;
+        while(head1 != NULL || head2 != NULL) {
+            if(head1 != NULL) {
+                ++len1; head1 = head1->next;
+            }
+            if(head2 != NULL) {
+                ++len2; head2 = head2->next;
+            }
+            
+        }
+        return len1-len2;//if difference is neg-> length of list2 > length of list1 else vice-versa
+}
+    
+    
+    
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        
+        if(headA == nullptr || headB == nullptr) return nullptr;
+         
+        /*Method 1: Extreme Brute Force  O(N*M) S.C = O(1)
+          Compare each node of the first linked list with all the nodes of the second linked list.
+        */
+        
+        
+        /*Method 2: Hashing T.C=O(N) S.C = O(1)*/
+        unordered_set<ListNode*> st;
+        
+        while(headA)
+        {
+            st.insert(headA);
+            headA = headA->next;
+        }
+        
+        while(headB)
+        {
+            if(st.find(headB) != st.end()) return headB;
+            headB = headB->next;
+        }
+        
+         
+        return nullptr;
+        
+        /*Method 4: Count number of nodes in the linked list and  traverse through their difference*/
+        
+        /*int n1 = 0;
+        int n2 = 0;
+        while(headA)
+        {
+            n1++;
+            headA = headA->next;
+        }
+        
+        while(headB)
+        {
+            n2++;
+            headB = headB->next;
+        }
+        
+        int diff=0;
+        if(n2>n1){ diff = n2-n1;
+                 
+                  int i=0;
+                  
+                  while(headA)
+                  {
+                      if(i==diff) break;
+                      headA=headA->next;
+                      i++;
+                  }
+                  
+                  while(headB && headA)
+                  {
+                      if(headA==headB) return headA;
+                      headA=headA->next;
+                      headB=headB->next;
+                  }
+                  
+                  
+                  
+                 }
+        
+        else
+        {
+            diff = n1-n2;
+                 
+                  int i=0;
+                  
+                  while(headB)
+                  {
+                      if(i==diff) break;
+                      headB=headB->next;
+                      i++;
+                  }
+                  
+                  while(headB && headA)
+                  {
+                      if(headA==headB) return headA;
+                      headA=headA->next;
+                      headB=headB->next;
+                  }     
+            }
+        
+            int diff = getDifference(headA,headB);
+            if(diff < 0) 
+                while(diff++ != 0) headB = headB->next; 
+            else while(diff-- != 0) headA = headA->next;
+            
+            while(headA != NULL) {
+                if(headA == headB) return headA;
+                headB = headB->next;
+                headA = headA->next;
+            }
+            return headA;
+        */
+        
+        
+        
+        /*Method 4: Optimal Solution
+        
+        ListNode* a = headA;
+        ListNode* b = headB;
+        
+        while(a!=b)
+        {
+            if(a==nullptr) 
+            {
+                a = headB;
+            }
+            else a = a->next;
+            
+            if(b==nullptr) 
+            {
+                b = headA;
+            }
+            else b = b->next;
+            
+            
+        }
+        
+        return a;*/
+        
+        return nullptr;
+        
+    }
+};
