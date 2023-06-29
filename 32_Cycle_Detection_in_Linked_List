@@ -1,0 +1,55 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        
+        
+        /*Method 1: Hashing T.C = O(N) S.C = O(1)*/
+        
+        unordered_map<ListNode*,int> mp;
+        
+        while(head)
+        {
+            mp[head]++;
+            if(mp[head] > 1) return true;
+            head = head->next;
+        }
+        
+        return false;
+        
+        
+        /* Method 2: Slow and fast pointers T.C = O(N) S.C = O(1)
+        if(head == nullptr) return false;
+        ListNode* fast = head;
+        ListNode* slow = head;
+        
+        do
+        {
+            if(fast && fast->next)
+            {
+            fast = fast->next->next;
+            slow=slow->next;}
+            else
+            {
+                return false;}
+            }while((slow != fast));
+        
+        slow = head;
+        while(slow && fast)
+        {
+            if(slow == fast) return true;
+            slow = slow->next;
+            fast = fast->next;
+            }
+        
+        return false;*/
+        
+    }
+};
