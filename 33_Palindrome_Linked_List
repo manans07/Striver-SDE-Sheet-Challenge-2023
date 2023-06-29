@@ -1,0 +1,72 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    
+    ListNode* reverse(ListNode* head)
+    {
+       if(head == nullptr || head->next==nullptr) return head;
+       ListNode* temp = nullptr;
+       ListNode* ptr = nullptr;
+       // ListNode* start = head->next;
+       
+       while(head)
+       {
+           ptr = head->next;
+           head->next = temp;
+           temp = head;
+           head = ptr;
+       }
+        return temp;
+    }
+    
+    
+    
+   bool isPalindrome(ListNode* head) {
+
+    /*Method 1: Naive Approach T.C = O(N) S.C = O(N)
+    ListNode* ptr = head;
+        vector<int> v1;
+		while(ptr!=NULL)
+		{
+			v1.push_back(ptr->val);
+			ptr= ptr->next;
+		}
+		
+		vector<int> v2 = v1;
+		reverse(v1.begin(),v1.end());
+		if(v1 == v2) return true;
+		return false;*/
+       
+       /*Method 2: Reverse the linked list and check  T.C = O(N) S.C = O(1)*/
+       
+       ListNode* fast = head;
+       ListNode* slow = head;
+       
+       while(fast->next && fast->next->next)
+       {
+           fast = fast->next->next;
+           slow = slow->next;
+       }
+       
+       slow->next = reverse(slow->next);
+       slow = slow->next;
+       
+       while(slow)
+       {
+           if(head->val != slow->val) return false;
+           head = head->next;
+           slow = slow->next;
+       }
+       
+       return true;
+    }
+};
