@@ -1,0 +1,59 @@
+class Solution {
+public:
+    int trap(vector<int>& height) {
+    
+            /*Method 1: Brute Force T.C=O(N*N) S.C = O(1)
+            int n = height.size();
+            int res=0;
+            for(int i=0;i<n;i++)
+            {
+                int j=i;
+                int leftmax=0,rightmax=0;
+                while(j>=0)
+                {
+                    leftmax = max(leftmax,height[j]);
+                    j--;
+                }
+                j=i;
+                
+                while(j<n)
+                {
+                    rightmax=max(rightmax,height[j]);
+                    j++;
+                }
+                
+                
+                res+= min(leftmax,rightmax)-height[i];
+            }
+        
+            return res;
+            
+            We can reduce the T.C of this approach by using 2 arrays containing the prefix-max and suffic-max for each element of height.
+            */
+        
+            /* Method 2: Two Pointer T.C=O(N) S.C = O(1) */
+            int left = 0;
+            int right = height.size()-1;
+            int leftmax = 0;
+            int rightmax = 0;
+            int res = 0;    
+        
+            while(left<right)
+            {
+                if(height[left] <= height[right]) 
+                {
+                    if(height[left]>=leftmax) leftmax = height[left];
+                    else res+= leftmax-height[left];
+                    left++;
+                    }
+                
+                else{
+                    if(height[right]>=rightmax) rightmax = height[right];
+                    else res+= rightmax-height[right];
+                    right--;
+                }
+            }
+
+            return res;
+    }
+};
