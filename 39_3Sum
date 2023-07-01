@@ -1,0 +1,110 @@
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        
+        /*Method 1: Brute Force
+        int n = nums.size();
+        vector<vector<int>> res;
+        if(n==0) return res;
+        set<vector<int>> st;
+                vector<int> temp;
+        
+        
+        for(int i=0;i<n-2;i++)
+        {
+            for(int j=i+1;j<n-1;j++)
+            {
+                long long sum = 0;
+                for(int k=j+1;k<n;k++)
+                {
+                    temp.clear();
+                    
+                    if(nums[i]+nums[j]+nums[k] == 0){
+                    temp.push_back(nums[i]);
+                    temp.push_back(nums[j]);
+                    temp.push_back(nums[k]);                    
+                    }
+                    if(temp.size() !=0)
+                    {
+                        sort(temp.begin(),temp.end());
+                        st.insert(temp);
+                    }
+                }
+            }
+        }
+        
+        for(auto it:st)
+        {
+            res.push_back(it);
+            }
+        return res;*/
+
+      /*Hashing  T.C = near to O(N*N) + O(N*logN) S.C = O(N) + O(No. of elements in set)
+
+        set<vector<int>> st;
+        // vector<int> temp;
+        
+
+		for(int i=0;i<n;i++)
+		{
+			set<int> s;
+			for(int j=i+1;j<n;j++)
+			{
+				int sum = nums[i]+nums[j];
+				if(s.find(K-sum) != s.end())
+				{
+                    vector<int> temp = {nums[i],nums[j],K-sum};
+					sort(temp.begin(),temp.end());
+					st.insert(temp);
+				}
+				s.insert(nums[j]);
+			}
+
+		}
+
+		vector<vector<int>> res(st.begin(),st.end());
+		return res;*/
+
+
+
+
+
+
+
+        
+        /*Method 3: Optimal Solution T.C = near to O(N*logN) + O(N*N) S.C = O(1)
+        
+        int i;
+        int n=nums.size();
+        sort(nums.begin(),nums.end());
+        vector<vector<int>> ans;
+        
+        for(i=0;i<n;i++){
+            if(i>0 &&  nums[i] == nums[i-1]) continue;
+            int j = i+1;
+            int k = n-1;
+            
+            while(j<k)
+            {
+                long long sum=nums[i];
+                sum+=nums[j];
+                sum+=nums[k];
+                
+                if(sum<0) j++;
+                else if(sum>0) k--;
+                else
+                {
+                    ans.push_back({nums[i],nums[j],nums[k]});
+                    j++;
+                    k--;
+                    while(j<k && nums[k] == nums[k+1]) k--;
+                    while(j<k && nums[j] == nums[j-1]) j--;
+                    
+                }
+            }
+            
+        }
+        
+        return ans;*/
+    }
+};
