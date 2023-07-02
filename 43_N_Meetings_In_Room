@@ -1,0 +1,114 @@
+    static bool cmp(pair<int,int> a,pair<int,int> b)
+    {
+        return a.second < b.second;
+    }
+    
+    
+    int maxMeetings(int start[], int end[], int n)
+    {
+        // Your code here
+        vector<pair<int,int>> temp;
+        
+        for(int i=0;i<n;i++)
+        {
+            pair<int,int> p = make_pair(start[i],end[i]);
+            temp.push_back(p);
+        }
+        
+        sort(temp.begin(),temp.end(),cmp);
+        
+        int endTime = temp[0].second;
+        int cnt =1;
+        for(int i=1;i<n;i++)
+        {
+            if(endTime < temp[i].first)
+            {
+                cnt++;
+                endTime=temp[i].second;
+            }
+        }
+        return cnt;
+    }
+
+
+
+/* Code Studio   
+
+struct meeting {
+   int start;
+   int end;
+   int pos;
+};
+
+
+/*bool cmp(pair<int,int> a,pair<int,int> b)
+{
+    return a.second < b.second;
+}*/
+
+bool static comparator(struct meeting m1, meeting m2) 
+{
+         if (m1.end < m2.end) return true;
+         else if (m1.end > m2.end) return false;
+         else if (m1.pos < m2.pos) return true;
+         return false;
+    }
+
+
+
+
+vector<int> maximumMeetings(vector<int> &s, vector<int> &e) {
+    // Write your code here.
+/*    vector<pair<int,int>> temp;
+    int n = start.size();
+    for(int i=0;i<n;i++)
+    {
+        pair<int,int> p = make_pair(start[i],end[i]);
+        temp.push_back(p);
+    }
+
+    int cnt=1;
+    
+    sort(temp.begin(),temp.end(),cmp);
+
+    vector<int> ans;
+    int endTime = temp[0].second;
+    ans.push_back(cnt);
+    for(int i=1;i<n;i++)
+    {
+        if(endTime < temp[i].first)
+        {
+            ans.push_back(i);
+            endTime = temp[i].second; 
+            
+        }
+    }
+
+    return ans;*/
+    int n = s.size();
+     struct meeting meet[n];
+      for (int i = 0; i < n; i++) {
+         meet[i].start = s[i], meet[i].end = e[i], meet[i].pos = i + 1;
+      }
+
+      sort(meet, meet + n, comparator);
+
+      vector < int > answer;
+
+      int limit = meet[0].end;
+      answer.push_back(meet[0].pos);
+
+      for (int i = 1; i < n; i++) {
+         if (meet[i].start > limit) {
+            limit = meet[i].end;
+            answer.push_back(meet[i].pos);
+         }
+      }
+    
+
+    return answer;
+}
+    
+    
+    
+    */
