@@ -1,0 +1,44 @@
+#include <bits/stdc++.h> 
+
+bool cmp(pair<int,int> p1, pair<int,int> p2)
+{
+    double d1 = (double) (p1.second)/(double)(p1.first);
+    double d2 = (double) (p2.second)/(double)(p2.first);
+
+    return d1>d2;
+}
+
+// Time Complexity : T.C = O(N*logN) + O(N) S.C = O(1)
+
+
+double maximumValue (vector<pair<int, int>>& items, int n, int w)
+{
+    // Write your code here.
+    // ITEMS contains {weight, value} pairs.
+
+    sort(items.begin(),items.end(),cmp);
+
+    int weight=0;
+    double ans=0;
+
+    for(int i=0;i<n;i++)
+    {
+        if(weight+items[i].first < w)
+        {
+            weight += items[i].first;
+            ans+=items[i].second;
+        }
+
+        else{
+
+            int rem = w-weight;
+            ans+=((double) (items[i].second)/(double)(items[i].first)) * (double)(rem);
+            break;
+        }
+
+
+
+    }
+
+    return ans;
+}
