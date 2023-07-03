@@ -1,0 +1,23 @@
+#include <bits/stdc++.h> 
+
+/*T.C = O(N*N) S.C = O(1) if the coin array is given*/
+int findMinimumCoins(int amount) 
+{
+    // Write your code here
+    vector<int> currency = {1000,500,100,50,20,10,5,2,1};
+
+    int n = currency.size();
+    int cnt = 0;
+
+    for(int i=0;i<n;i++)
+    {
+        while(amount-currency[i] >= 0)
+        {
+            amount-=currency[i];
+            cnt++;
+        }
+
+    }
+    return cnt;
+
+}
