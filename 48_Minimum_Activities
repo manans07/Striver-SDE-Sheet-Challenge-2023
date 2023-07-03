@@ -1,0 +1,39 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+bool cmp(pair<int,int> p1,pair<int,int> p2)
+{
+    return p1.second<p2.second;
+} 
+
+/*T.C = O(N*logN) + O(N) S.C = O(N) */
+
+int maximumActivities(vector<int> &start, vector<int> &finish) {
+    // Write your code here.
+
+    vector<pair<int,int>> v;
+    int n = start.size();
+
+    for(int i=0;i<n;i++)
+    {
+      pair<int, int> p1 = {start[i],finish[i]};
+      v.push_back(p1);
+    }
+
+    sort(v.begin(),v.end(),cmp);
+
+    int cnt=1;
+    int n1 = v.size();
+    int Endtime = v[0].second;
+    for(int i=1;i<n1;i++)
+    {
+        if(Endtime <= v[i].first)
+        {
+            cnt++;
+            Endtime = v[i].second;
+        }
+    }
+
+    return cnt;
+
+}
