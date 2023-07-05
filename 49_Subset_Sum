@@ -1,0 +1,61 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+/* T.C = O(2^N) + O(2^N*logN)  S.C = O(2^NlogN) + O(N*N)*/
+vector<vector<int>> v;
+
+void getSubsets(vector<int> &arr,int i,vector<int> &sum)
+{
+  if(i==arr.size()) {
+        v.push_back(sum);
+        return;
+  }
+  getSubsets(arr,i+1,sum);
+  sum.push_back(arr[i]);
+  getSubsets(arr,i+1,sum);
+  sum.pop_back();
+
+}
+
+vector<int> subsetSum(vector<int> &num){
+	// Write your code here.
+   vector<int> sum;
+  getSubsets(num,0,sum);
+  int s=0;
+  vector<int> ans;
+  for(auto it:v)
+  {
+    s = accumulate(it.begin(), it.end(),0);
+    ans.push_back(s);
+  }
+
+  sort(ans.begin(),ans.end());
+  return ans;
+}
+*/
+
+/* Method 2: Optimal Recursive Solution T.C = O(2^N) + O(2^N*logN)  S.C = O(2^NlogN) + O(N*N)*/
+void subsetSumsHelper(int ind, vector < int > & arr, int n, vector < int > & ans, int sum) {
+      if (ind == n) {
+        ans.push_back(sum);
+        return;
+      }
+      //element is picked
+      subsetSumsHelper(ind + 1, arr, n, ans, sum + arr[ind]);
+      //element is not picked
+      subsetSumsHelper(ind + 1, arr, n, ans, sum);
+    }
+
+
+  vector < int > subsetSums(vector < int > arr, int n) {
+    vector < int > ans;
+    subsetSumsHelper(0, arr, n, ans, 0);
+    sort(ans.begin(), ans.end());
+    return ans;
+  }
+
+vector<int> subsetSum(vector<int> &num){
+	// Write your code here.
+	int n = num.size();
+	return subsetSums(num,n);	
+}
