@@ -1,0 +1,46 @@
+class Solution {
+public:
+    
+    bool isPalindrome(string s,int left,int right)
+    {
+        while(left<=right)
+        {
+            if(s[left++] != s[right--]) return false;
+            }
+        
+        return true;
+    }
+    
+    
+    void partitioning(int ind,string s,vector<string> &s1,vector<vector<string>> &v1)
+    {
+        if(ind==s.size())
+        {
+            v1.push_back(s1);
+            return;
+            }
+        
+        for(int i=ind;i<s.size();++i)
+        {
+            if(isPalindrome(s,ind,i))
+            {
+                // string str = s.substr(ind,i-ind+1);
+                s1.push_back(s.substr(ind,i-ind+1));
+                partitioning(i+1,s,s1,v1);
+                s1.pop_back();
+            }
+        }
+        
+    }
+    
+    vector<vector<string>> partition(string s) {
+   
+        int n =s.size();        
+        vector<string> temp;
+        vector<vector<string>> v1;
+    
+        partitioning(0,s,temp,v1);
+        
+        return v1;
+    }
+};
