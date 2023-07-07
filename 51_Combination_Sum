@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<vector<int>> v1;
+    
+    void func(int i,vector<int>& v,vector<int> &arr,int target)
+    {
+        if(i==v.size()){ 
+            
+            if(target == 0) v1.push_back(arr);
+            return;}
+        if(v[i] <= target)
+        {
+            arr.push_back(v[i]);
+            func(i,v,arr,target-v[i]);
+            arr.pop_back();
+        }
+        func(i+1,v,arr,target);
+
+    }
+    
+    vector<vector<int>> combinationSum(vector<int>& v, int target) {
+        // vector<vector<int>> v1;
+        vector<int> v2;
+        func(0,v,v2,target);
+        return v1;
+    }
+};
