@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<vector<int>> v1;
+    void getCombinations(vector<int> &v,int i,vector<int> &ds,int target)
+    {
+            if(target==0)
+            {
+                v1.push_back(ds);
+                return;
+                }
+                
+        for(int j=i;j<v.size();j++)
+        {
+            if(j!=i && v[j] == v[j-1]) continue;
+            if(v[j] > target) break;
+            ds.push_back(v[j]);
+            getCombinations(v,j+1,ds,target-v[j]);
+            ds.pop_back();
+            }        
+    }
+
+    vector<vector < int >> combinationSum2(vector < int > & candidates, int target) {
+        
+        sort(candidates.begin(), candidates.end());
+        vector < int > ds;
+        getCombinations(candidates,0,ds,target);
+        vector < vector < int >> ans(v1.begin(),v1.end());
+        return v1;
+    }
+};
