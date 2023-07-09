@@ -1,0 +1,59 @@
+class Solution {
+public:
+    
+    /*Method 1: Using hashing using extra space T.C = O(N!) S.C = O(N) (Excluding the answer array)
+     void getPermutations(vector<int> &arr,vector<int> &temp,vector<vector<int>> &ans,vector<int> &mp)
+    {
+        if(temp.size() == arr.size()) 
+        {
+            ans.push_back(temp);
+            return;
+        }
+        
+        for(int i=0;i<arr.size();i++)
+        {
+            if(!mp[i])
+            {
+                    temp.push_back(arr[i]);
+                    mp[i] =1;
+                    getPermutations(arr,temp,ans,mp);
+                    temp.pop_back();
+                    mp[i] =0;
+            }
+        }    
+    }
+    
+    vector<vector<int>> permute(vector<int>& v) {
+        
+        vector<vector<int>> ans;
+        vector<int> ds;
+        vector<int> mp(v.size(),0);
+        getPermutations(v,ds,ans,mp);
+        return ans;        
+    }*/
+    
+    
+    /*Method 1: Using hashing using extra space T.C = O(N!*N) S.C = O(1) (Excluding the answer array which contains O(N!) space) 
+    void getPermutations(int ind,vector<int> &arr,vector<vector<int>> &ans)
+    {
+        if(ind == arr.size()) 
+        {
+            // vector<int> ds(arr.begin(),arr.end());
+            ans.push_back(arr);
+            return;
+        }
+        
+        for(int i=ind;i<arr.size();i++)
+        {
+            swap(arr[i],arr[ind]);
+            getPermutations(ind+1,arr,ans);
+            swap(arr[i],arr[ind]);
+        }    
+    }
+    
+    vector<vector<int>> permute(vector<int>& v) {
+        vector<vector<int>> ans;
+        getPermutations(0,v,ans);
+        return ans;        
+    }
+};
