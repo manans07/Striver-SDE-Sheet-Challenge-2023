@@ -1,0 +1,149 @@
+class Solution {
+public:
+    
+    
+    
+    /*Method 1: Direct Implementation
+    bool isSafe(int row,int col,vector<string> v,int n)
+    {
+        if(row>=n || col>=n) return false;
+        
+        int r = row;
+        int c = col;
+        
+        while(r>=0 && c>=0)
+        {
+            if(v[r][c] == 'Q') return false;
+            r--;
+            c--;
+            }
+        
+        r = row;
+        c = col;
+        
+        while(c>=0)
+        {
+            if(v[r][c] == 'Q') return false;
+            c--;
+            }
+        
+        r = row;
+        c = col;
+        
+        while(r<n && c>=0)
+        {
+            if(v[r][c] == 'Q') return false;
+            r++;
+            c--;
+            }
+        
+        return true;
+    }
+    
+    void getPositions(int i,int n,vector<string> &v1,vector<vector<string>> &v2)
+    {
+        if(i==n)
+        {
+            v2.push_back(v1);
+            return;
+        }
+        
+        for(int r=0;r<n;r++)
+        {
+            if(isSafe(r,i,v1,n))
+            {
+                v1[r][i] = 'Q';
+                getPositions(i+1,n,v1,v2);
+                v1[r][i] = '.';
+            }
+        }
+        
+    }*/
+    
+    
+    
+    /*Method 2: Using hashing and maintaing the track of positions where queens are placed*/
+    bool isSafe(int row,int col,vector<string> v,int n)
+    {
+        if(row>=n || col>=n) return false;
+        
+        int r = row;
+        int c = col;
+        
+        while(r>=0 && c>=0)
+        {
+            if(v[r][c] == 'Q') return false;
+            r--;
+            c--;
+            }
+        
+        r = row;
+        c = col;
+        
+        while(c>=0)
+        {
+            if(v[r][c] == 'Q') return false;
+            c--;
+            }
+        
+        r = row;
+        c = col;
+        
+        while(r<n && c>=0)
+        {
+            if(v[r][c] == 'Q') return false;
+            r++;
+            c--;
+            }
+        
+        return true;
+    }
+    
+    void getPositions(int j,int n,vector<string> &v1,vector<int> &leftRow,vector<int> &upperDiagnol,vector<int> &lowerDiagnol,vector<vector<string>> &v2)
+    {
+        if(j==n)
+        {
+            v2.push_back(v1);
+            return;
+        }
+        
+        for(int i=0;i<n;i++)
+        {
+            if(leftRow[i] == 0 && upperDiagnol[(n-1)+(i-j)] == 0 && lowerDiagnol[i+j] == 0)
+            {
+                leftRow[i] = 1;
+                upperDiagnol[(n-1)+(i-j)]=1;
+                lowerDiagnol[i+j] = 1;
+                v1[i][j] = 'Q';
+                getPositions(j+1,n,v1,leftRow,upperDiagnol,lowerDiagnol,v2);
+                leftRow[i] = 0;
+                upperDiagnol[(n-1)+(i-j)]=0;
+                lowerDiagnol[i+j] = 0;
+                v1[i][j] = '.';
+            }            
+        }   
+    }
+    
+    vector<vector<string>> solveNQueens(int n) {
+        /*vector<vector<string>> v;
+        vector<string> v1(n);
+        string s(n,'.');
+        for(int i=0;i<n;i++){
+            v1[i] = s;
+        }
+        getPositions(0,n,v1,v);
+        return v;*/
+        
+        vector<vector<string>> v2;
+        vector<string> v1(n);
+        string s(n,'.');
+        for(int i=0;i<n;i++){
+            v1[i] = s;
+        }
+        
+        vector<int> leftRow(n,0),upperDiagnol(2*n-1,0),lowerDiagnol(2*n-1,0);
+        getPositions(0,n,v1,leftRow,upperDiagnol,lowerDiagnol,v2);
+
+        return v2;
+    }
+}; 
