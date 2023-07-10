@@ -33,7 +33,7 @@ public:
     }*/
     
     
-    /*Method 1: Using hashing using extra space T.C = O(N!*N) S.C = O(1) (Excluding the answer array which contains O(N!) space) 
+    /*Method 2: Using hashing using extra space T.C = O(N!*N) S.C = O(1) (Excluding the answer array which contains O(N!) space) 
     void getPermutations(int ind,vector<int> &arr,vector<vector<int>> &ans)
     {
         if(ind == arr.size()) 
