@@ -1,0 +1,81 @@
+#include<bits/stdc++.h>
+
+
+
+int singleNonDuplicate(vector<int>& arr)
+{
+	// Write your code here
+	/*Method 1: Brute Force
+	int n = arr.size();
+	if(arr[0] != arr[1]) return arr[0];
+	else if(arr[n-2] != arr[n-1]) return arr[n-1];
+
+	int ans = -1;
+	for(int i=1;i<n-1;i++)
+	{	
+		if((arr[i] != arr[i-1]) && (arr[i] != arr[i+1])) 
+		{
+			ans = arr[i];
+			break;
+		} 
+	}
+
+	return ans;*/
+
+	/*Method 2: Hashing
+	int n = arr.size();
+	unordered_map<int,int> mp;
+	int ans = -1;
+	for(int i=0;i<n;i++)
+	{	mp[arr[i]]++;
+	}
+
+	for(auto it:mp)
+	{
+		if(it.second == 1) 
+		{
+			ans = it.first;
+			break;
+		}
+	}
+
+	return ans;*/
+
+
+	/*Method 3: Binary Search*/
+	
+
+	int n = arr.size();
+	int left = 0, right = arr.size()-1;
+
+	if (n == 1) return arr[0];
+    if (arr[0] != arr[1]) return arr[0];
+    if (arr[n - 1] != arr[n - 2]) return arr[n - 1];
+	
+	
+	
+	while(left <= right)
+	{
+		int mid = left + (right-left)/2;
+		
+		if(arr[mid]>arr[mid-1] && arr[mid]<arr[mid+1])
+		{
+			return arr[mid];
+		}
+
+		if ((mid % 2 == 1 && arr[mid] == arr[mid - 1])
+                || (mid % 2 == 0 && arr[mid] == arr[mid + 1])) {
+			
+			left = mid + 1;
+        }
+
+		
+		else
+		{
+			right = mid-1;
+		}
+	}
+
+	return -1;
+
+}
