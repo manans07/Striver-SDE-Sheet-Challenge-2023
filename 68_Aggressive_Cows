@@ -1,0 +1,64 @@
+#include <bits/stdc++.h> 
+
+bool canWePlace(vector<int> arr,int dist,int c)
+{
+	int cnt = 1;
+	int last = arr[0];
+
+	for(int i=1;i<arr.size();i++)
+	{
+		if(arr[i]-last >= dist)
+		{
+			cnt++;
+			last = arr[i];
+		}
+		
+		if(cnt >= c) return true;
+	}
+
+	return false;
+}
+
+
+
+
+
+int chessTournament(vector<int> arr , int n ,  int c){
+	// Write your code here
+
+	/*Method 1: Linear Search
+
+	sort(arr.begin(),arr.end());
+	int n1 = arr[n-1] - arr[0];
+	for(int i=1;i<n1;i++)
+	{
+		if(canWePlace(arr,i,c) == false) 
+		{
+			return (i-1);
+		}
+	}
+
+	return n1;*/
+
+	/*Method 2: Binary Search*/
+
+	sort(arr.begin(),arr.end());
+
+	int left =1, right = arr[n-1]-arr[0];
+	int cnt = 1;
+	while(left <= right)
+	{
+		int mid = left+(right-left)/2;
+		
+		if(canWePlace(arr,mid,c))
+		{
+			left = mid+1;
+			cnt++;
+		}
+
+		else right = mid-1;
+
+	}
+
+	return right;
+}
