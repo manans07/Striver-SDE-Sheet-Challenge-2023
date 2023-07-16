@@ -1,0 +1,174 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+/*Implementation for Max-Heap*/
+void heapify(int arr[],int n,int ind)
+	{
+		int largest = ind;
+		int left = ind*2;
+		int right = 2*ind+1;
+		
+		if(left < n && arr[largest] < arr[left])
+		{
+			largest = left;
+		}
+		
+		else if(right < n && arr[largest] < arr[right])
+		{
+			largest = right;
+		}
+		
+		if(largest != ind) 
+		{
+			swap(arr[ind],arr[largest]);
+			heapify(arr,n,largest);
+		}
+	}
+	
+	
+class heap{
+	
+	int arr[100];
+	int size;
+	public:
+	heap()
+	{
+		size=0;
+	}
+	
+	void insert(int val)
+	{
+		size+=1;
+		arr[size] = val;
+		int ind = size;
+		
+		while(ind > 1)
+		{
+			int parent = ind/2;
+			if(arr[parent] < arr[ind])
+			{
+				swap(arr[ind],arr[size]);
+				ind = parent;
+			}
+			else{
+				return;
+			}
+			
+		}
+	}
+	
+	void erase()
+	{
+		if(size>1)
+		{
+			arr[1] = arr[size];
+			size-=1;
+			
+			int ind = 1;
+			
+			while(ind < size)
+			{
+				int leftInd = 2*ind;
+				int rightInd = 2*ind+1;
+			
+				if(arr[ind] < arr[leftInd] && arr[leftInd] > arr[rightInd])
+				{
+					swap(arr[ind],arr[leftInd]);
+					ind = leftInd;
+				}
+				else if(arr[ind] < arr[rightInd] && arr[leftInd] < arr[rightInd]){
+					swap(arr[ind],arr[rightInd]);
+					ind = rightInd;
+				}
+				else return;
+			}
+		}
+		
+		else return;	
+	}
+
+  /* For Min-Heap
+  	void insert(int val)
+	{
+		size+=1;
+		arr[size] = val;
+		int ind = size;
+		
+		while(ind > 1)
+		{
+			int parent = ind/2;
+			if(arr[parent] > arr[ind])
+			{
+				swap(arr[ind],arr[size]);
+				ind = parent;
+			}
+			else{
+				return;
+			}
+			
+		}
+	}
+	
+	void erase()
+	{
+		if(size>1)
+		{
+			arr[1] = arr[size];
+			size-=1;
+			
+			int ind = 1;
+			
+			while(ind < size)
+			{
+				int leftInd = 2*ind;
+				int rightInd = 2*ind+1;
+			
+				if(arr[ind] > arr[leftInd] && arr[leftInd] < arr[rightInd])
+				{
+					swap(arr[ind],arr[leftInd]);
+					ind = leftInd;
+				}
+				else if(arr[ind] > arr[rightInd] && arr[leftInd] > arr[rightInd]){
+					swap(arr[ind],arr[rightInd]);
+					ind = rightInd;
+				}
+				else return;
+			}
+		}
+		
+		else return;	
+	}*/
+};
+
+
+
+
+
+int main()
+{
+	heap h1;
+	
+	h1.insert(50);
+	h1.insert(55);
+	h1.insert(52);
+	h1.insert(57);
+	h1.insert(51);
+	h1.insert(53);
+	h1.erase();
+	
+	int arr[] = {-1,50,55,52,57,51,53};
+	int n = 7;
+	
+	for(int i=n/2 ;i>0;i--)
+	{
+		heapify(arr,n,i);
+	}
+	
+	
+	for(auto it:arr)
+	{
+		cout<<it<<' ';
+	}
+	
+	return 0;
+}
