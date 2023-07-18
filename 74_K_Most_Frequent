@@ -1,0 +1,33 @@
+class Solution {
+public:
+    
+    /*static bool cmp(pair<int,int> a,pair<int,int> b)
+    {
+        return a.second>b.second;
+    }*/
+    
+     vector<int> topKFrequent(vector<int>& nums, int k) {
+      
+        unordered_map<int,int> mp;
+        
+        for(auto it:nums) mp[it]++;
+        
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> p1;
+         
+         for(auto it:mp)
+         {
+             p1.push(make_pair(it.second,it.first));
+             while(p1.size()>k) p1.pop();
+                
+         }
+         
+         vector<int> ans;
+         while(!p1.empty())
+         {
+             ans.push_back(p1.top().second);
+             p1.pop();
+         }
+         
+         return ans;
+     }
+};
