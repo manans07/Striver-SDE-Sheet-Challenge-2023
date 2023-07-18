@@ -1,0 +1,61 @@
+#include<bits/stdc++.h>
+
+
+vector<int> Solution::solve(vector<int> &A, vector<int> &B, int C) {
+    
+    // priority_queue<int> pq;
+    int n = A.size();
+/*    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            int sum = A[i]+B[j];
+            pq.push(sum);
+        }
+    }
+        
+    vector<int> ans;
+    
+    while(!pq.empty())
+    {
+        ans.push_back(pq.top());
+        pq.pop();
+        // i++;
+    }
+    
+    // reverse(ans.begin(),ans.end());       
+       
+    return vector<int>(ans.begin(),ans.begin()+C); */
+    
+    sort(A.begin(),A.end());
+    sort(B.begin(),B.end());
+    set<pair<int,int>> s;
+    priority_queue<pair<int,pair<int,int>>> pq;
+    vector<int> ans;
+    // int n = A.size();
+    
+    pq.push(make_pair((A[n-1]+B[n-1]),make_pair(n-1,n-1)));
+    s.insert(make_pair(n-1,n-1));
+        
+    while(C--)
+    {
+        auto top = pq.top();
+        pq.pop();
+        ans.push_back(top.first);
+        int L = top.second.first;
+        int R = top.second.second;
+        
+        if(L>0 && R>0 && s.find(make_pair(L-1,R)) == s.end()){
+            pq.push(make_pair(A[L-1]+B[R],make_pair(L-1,R)));
+            s.insert(make_pair(L-1,R));
+        }
+        
+        if(L>0 && R>0 && s.find(make_pair(L,R-1)) == s.end()){
+            pq.push(make_pair(A[L]+B[R-1],make_pair(L,R-1)));
+            s.insert(make_pair(L,R-1));
+        }
+        
+    }
+    
+    return ans;    
+}
