@@ -1,0 +1,99 @@
+// Stack class.
+class Stack {
+
+    int toppos;
+    int *arr;
+    int size;
+    
+public:
+    /*
+    int *arr;
+    int Top;
+    int size;
+    Stack(int capacity) {
+        // Write your code here.
+        arr = new int[capacity];
+        Top = -1;
+        size = capacity;
+    }
+
+    void push(int num) {
+        // Write your code here.
+        
+        if(Top < size && Top>=0)  arr[Top++] = num;
+        else return;
+    }
+
+    int pop() {
+        // Write your code here.
+        if(Top == -1) return -1;
+        return arr[Top--];
+    }
+    
+    int top() {
+        // Write your code here.
+        if(Top>=0 && Top<size) return arr[Top];
+        else return -1;
+    }
+    
+    int isEmpty() {
+        // Write your code here.
+        return Top == -1;
+
+    }
+    
+    int isFull() {
+        // Write your code here.
+        return Top == size-1;
+    }*/
+
+    Stack(int capacity) {
+        this->toppos = -1;
+        this->size = capacity;
+        arr = new int[capacity];
+    }
+
+    void push(int num) {
+        if (size - toppos > 1) {
+            toppos++;
+            arr[toppos] = num;
+        } else {
+            return;
+        }
+    }
+
+    int pop() {
+        if (toppos >= 0) {
+            toppos--;
+            return arr[toppos + 1];
+        } else {
+            return -1;
+        }
+    }
+
+    int top() {
+        if (toppos >= 0) {
+            return arr[toppos];
+        } else {
+            return -1;
+        }
+    }
+
+    int isEmpty() {
+        if (toppos == -1)
+            return 1;
+        else
+            return 0;
+    }
+
+    int isFull() {
+        if (toppos == size - 1)
+            return 1;
+        else
+            return 0;
+    }
+
+    
+};
+
+   
