@@ -1,0 +1,55 @@
+#include<bits/stdc++.h>
+
+unordered_map<char, int> mp = {{'[', -3}, {'{', -2}, {'(', -1},
+                               {')', 1},  {'}',2}, {']',3}};
+
+bool isValidParenthesis(string s)
+{
+  // Write your code here.
+/*    stack<char> st;
+
+    for(auto it:s)
+    {
+        if(mp[it] < 0)
+        {
+            st.push(it);
+        }
+
+        else{
+        if(!st.empty())
+        {
+            char ch = st.top();
+            st.pop();
+            if(mp[ch] + mp[it] != 0) return false;
+        }
+
+        else return false;}
+    }
+
+    return true;*/
+
+    stack<char> st;
+
+    for(auto it:s)
+    {
+        if(it=='[' || it=='{' || it=='(')
+        {
+            st.push(it);
+        }
+
+        else{
+          if (!st.empty()) {
+            char ch = st.top();
+            st.pop();
+            if ((it == ']' && ch != '[') || (it == '}' && ch != '{') ||
+                (it == ')' && ch != '('))
+              return false;
+          }
+
+          else
+            return false;
+        }
+    }
+
+    return true;
+}
