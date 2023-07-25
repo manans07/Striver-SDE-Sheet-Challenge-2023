@@ -1,0 +1,68 @@
+class Solution {
+public:
+    
+    int orangesRotting(vector<vector<int>>& grid) {
+        
+        int n = grid.size();
+        int m = grid[0].size();
+        
+        int cntF = 0;
+        queue<pair<pair<int,int>,int>> q1;
+        
+        int vis[n][m];
+        
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                if(grid[i][j] == 2)
+                {
+                    q1.push({{i,j},0});
+                    vis[i][j] = 2;
+                        }
+                
+                else vis[i][j] = 0;
+                
+                if(grid[i][j] == 1) cntF++;
+            }
+        }
+        
+        
+        int row[] = {-1,0,1,0}; 
+        int col[] = {0,1,0,-1}; 
+        int t =0;
+        int cnt = 0;
+        
+        
+        while(!q1.empty())
+        {
+            int r = q1.front().first.first;
+            int c = q1.front().first.second;
+            int tm = q1.front().second;
+            t = max(tm,t);
+            q1.pop();
+            
+            for(int i=0;i<4;i++)
+            {
+                int r1 = r+row[i];
+                int c1 = c+col[i];
+                
+                
+                if((r1>=0 && r1<n) && (c1>=0 && c1<m) && grid[r1][c1] == 1 && vis[r1][c1] == 0)
+                {
+                    q1.push({{r1,c1},tm+1});
+                    vis[r1][c1] =  2;
+                    cnt++;
+                 }
+            }
+            
+        }
+        
+        
+    // cout<<cnt<<' '<<cntF;        
+        
+    if(cnt != cntF) return -1;
+        return t;
+    
+    }
+};
