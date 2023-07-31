@@ -1,0 +1,95 @@
+class Solution {
+public:
+    string reverseWords(string s) {
+        
+        /* Method 1: Brute Force
+        vector<string> arr;
+        int n = s.size();
+        
+        for(int i=0;i<n;i++)
+        {
+            string str = "";
+            if(s[i] != ' ')
+            {
+                int j = i;
+                
+                while(j<n && s[j] != ' ')
+                {
+                    str+=s[j];
+                    j++;
+                }
+                i=j;
+                arr.push_back(str);
+            }
+            
+        }
+        
+        int n1 = arr.size();
+        string s1 = "";
+        
+        
+        for(int i=n1-1;i>=0;i--)
+        {
+            s1+=arr[i];
+            if(i>0) s1+=' ';
+        }
+        
+        return s1;*/
+        
+            stack<string> st;
+            int i;
+            string str="";
+            for(i=0;i<s.length();i++)
+            {
+                if(s[i]==' ')
+                {
+                    st.push(str);
+                    str="";
+                }
+                else str+=s[i];
+            }
+            string ans="";
+            while(st.size()!=1)
+            {
+                ans+=st.top()+" ";
+                st.pop();
+            }
+            ans+=st.top();// The last word should'nt have a space after it
+            return ans;
+    }
+    
+    
+    /* Constant Space
+        
+        // function to reverse any part of string from i to j (just one word or entire string)
+    void reverseword(string &s, int i, int j){
+        while(i<j){
+          char t=s[i];
+          s[i++]=s[j];
+          s[j--]=t;
+        } 
+    }
+    
+    void reverseWords(string &s) {
+        
+        int i=0, j=0;
+        int l=0;
+        int len=s.length();
+        int wordcount=0;
+        
+        while(true){
+            while(i<len && s[i] == ' ') i++;  // skip spaces in front of the word
+            if(i==len) break;
+            if(wordcount) s[j++]=' ';
+            l=j;
+            while(i<len && s[i] != ' ') {s[j]=s[i]; j++; i++;} 
+            reverseword(s,l,j-1);                // reverse word in place
+            wordcount++;
+            
+        }
+        
+        s.resize(j);                           // resize result string
+        reverseword(s,0,j-1);                  // reverse whole string
+    }    */
+    
+};
