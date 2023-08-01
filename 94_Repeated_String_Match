@@ -1,0 +1,43 @@
+class Solution {
+public:
+    
+    bool isSub(string a, string b)
+    {
+        return a.find(b) != string::npos;
+        
+    }
+     
+    int repeatedStringMatch(string a, string b) {
+        
+        int cnt = 1;
+        
+        /*if(b.size() < a.size()) return -1;
+        if(isSub(b,a) == false)  return -1;
+        
+        while(!isSub(a,b))
+        {
+            a+=a;
+            ++cnt;
+            }
+        
+        return cnt;*/
+        
+        int n = a.size();
+        int m = b.size();
+        
+        string temp = a;
+        
+        while(a.size() < b.size())
+        {
+            a+=temp;
+            cnt++;
+        }
+        
+        if(isSub(a,b)) return cnt;
+        
+        if(isSub(a+temp,b)) return cnt+1;
+        
+        
+        return -1;
+    }
+}; 
