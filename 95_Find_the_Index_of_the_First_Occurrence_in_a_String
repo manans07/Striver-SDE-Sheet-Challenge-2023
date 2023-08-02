@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int strStr(string h, string n) {
+        // // int index=-1;
+        // for(int i=0;i<h.size();i++)
+        // {
+        //         if(h[i] == n[0])
+        //         {
+        //             int j=0;
+        //             int k = i;
+        //             while(j<n.size())
+        //             {
+        //                 if(n[j] != h[k])
+        //                 {
+        //                     break;
+        //                     }
+        //                     j++;k++;
+        //             }
+        //             if(j == n.size()) return i;
+        //         }
+        // }
+        // return -1;
+        
+        if(h.find(n) == string::npos) return -1;
+
+        return h.find(n);
+        }
+};
