@@ -20,9 +20,64 @@ public:
         //         }
         // }
         // return -1;
-        
+
+        /* Method 1: Brute Force
         if(h.find(n) == string::npos) return -1;
 
-        return h.find(n);
+        return h.find(n);*/
+        
         }
+
+
+   /* KMP Algorithm     
+vector<int> stringMatch(string text, string pattern) {
+	// Write your code here.
+	int n = text.size();
+	int m = pattern.size();
+	vector<int> arr(m,0),ans;
+
+	int len = 0;
+	for(int i=1;i<m;i++)
+	{
+		if(pattern[i] == pattern[len])
+		{
+			len++;
+			arr[i] = len;
+		}
+		else
+		{
+			if(len != 0)
+			{
+				len = arr[len-1];
+			}
+		}
+
+	}
+
+	int i1=0,j1=0;
+	
+	while(i1<n)
+	{
+		if(text[i1] == pattern[j1])
+		{
+			i1++;
+			j1++;
+
+			if(j1==m)
+			{
+				ans.push_back(i1-j1+1);
+				j1 = arr[j1-1];
+			}
+
+		}
+
+		else{
+			if(j1>0) j1 = arr[j1-1];
+			else i1++;
+		}
+	}
+
+	return ans;
+}*/
+
 };
