@@ -1,0 +1,49 @@
+#include<bits/stdc++.h>
+/********************************************************************
+
+    Following is the Binary Tree node structure:
+
+    class BinaryTreeNode {
+        public :
+        int data;
+        BinaryTreeNode<T> *left;
+        BinaryTreeNode<T> *right;
+
+        BinaryTreeNode(T data) {
+            this -> data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+    
+********************************************************************/
+
+
+
+/* Time: 2^N Space: O(1)*/
+void fun(BinaryTreeNode<int> * root,string res, vector<string> &arr)
+{
+        if (root == nullptr) {
+            return;
+        }
+        res += to_string(root->data)+" ";
+        if(root->left == NULL && root->right == NULL)
+        {
+            arr.push_back(res);
+            return;
+        }
+        fun(root->left,res,arr);
+        fun(root->right,res,arr);
+}
+
+
+
+vector <string> allRootToLeaf(BinaryTreeNode<int> * root) {
+    // Write your code here.
+    string res = "";
+    vector<string> ans;
+    fun(root,res,ans);
+
+    return ans;
+
+}
